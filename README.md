@@ -1,6 +1,6 @@
 # Karno_Chess
 
-exe应用程序下载请前往官网 https://project.abrotode.com/Karno-Chess/
+exe应用程序下载请前往官网 https://karnochess.co/
 
 版本号1.2, 更新如下:
 
