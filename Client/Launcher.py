@@ -21,7 +21,7 @@ def atoi(s):
                 num += j * (10 ** i)
     return num
 
-def Quit():
+def Save():
     file=open("Servers",mode="w")
     name=env.name_input.get()
     file.write(name+'\n')
@@ -33,7 +33,15 @@ def Quit():
             file.flush()
         except:
             pass
-    sys.exit(0)
+
+def Quit():
+    Save()
+    try:
+        env.destroy()
+    except:
+        pass
+    # print('Quit!')
+    exit(0)
 
 picpath='pic'
 
@@ -74,7 +82,7 @@ class Maze(tk.Tk, object):
                         width=EDGE*10)
         global bk
         bk = tk.PhotoImage(file = picpath+"/Karno.png")
-        image = self.canvas.create_image(EDGE*30/4, EDGE*8.66/2, image=bk)
+        image = self.canvas.create_image(EDGE*5, EDGE*8.66/2, image=bk)
         self.canvas.pack()
     
     def Init_Home(self):
@@ -112,23 +120,26 @@ class Maze(tk.Tk, object):
         self.button[7]=tk.Button(self,text="Connect",command=lambda: self.Connect(7))
         self.button[8]=tk.Button(self,text="Connect",command=lambda: self.Connect(8))
         self.button[9]=tk.Button(self,text="Connect",command=lambda: self.Connect(9))
+        self.Exit=tk.Button(self,text="Quit",command=Quit)
         self._build_home()
     
     def _build_home(self):
         # self.ip_input[0]=tk.Entry(self,show="192.168.1.107")
         # self.port_input[0]=tk.Entry(self,show="3450")
+        self.Exit.pack()
+        self.Exit.place(x=50,y=50,width=100)
         self.name_label.pack()
-        self.name_label.place(x=10,y=50,width=40)
+        self.name_label.place(x=10,y=100,width=40)
         self.name_input.pack()
-        self.name_input.place(x=50,y=50,width=100)
+        self.name_input.place(x=50,y=100,width=100)
         for i in range(10):
             # print("fkpps")
             self.ip_input[i].pack()
-            self.ip_input[i].place(x=50,y=50*(i+2),width=200)
+            self.ip_input[i].place(x=50,y=50*(i+3),width=200)
             self.ip_label[i].pack()
-            self.ip_label[i].place(x=30,y=50*(i+2),width=20)
+            self.ip_label[i].place(x=30,y=50*(i+3),width=20)
             self.button[i].pack()
-            self.button[i].place(x=280,y=50*(i+2),width=60)
+            self.button[i].place(x=280,y=50*(i+3),width=60)
     
     def _delete_home(self):
         self.name_label.place_forget()
@@ -141,6 +152,7 @@ class Maze(tk.Tk, object):
 
     def Init_Rooms(self,ip):
         try:
+            Save()
             self._delete_home()
         except:
             pass
